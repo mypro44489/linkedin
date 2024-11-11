@@ -9,31 +9,20 @@
     display: grid;
     grid-template-rows: 10rem 1fr 10rem;
     gap: 2rem;
-    padding-inline: 2rem;
+    padding-inline: 1rem;
     max-width: 74rem;
     width: 100%;
     margin: 0 auto;
   }
 
-  .header,
   .left,
   .right,
   .posting,
   .feed {
-    background-color: #eaeaea;
-    border-radius: 1rem;
+    background-color: white;
+    border-radius: 0.3rem;
+    border: 1px solid #e0e0e0;
   }
-
-  .header {
-    height: 4rem;
-    border-radius: 0;
-    display: flex;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 1rem;
-    gap: 1rem;
-  }
-
   .center {
     display: grid;
     gap: 1rem;

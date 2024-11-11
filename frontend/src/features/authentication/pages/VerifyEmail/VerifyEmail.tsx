@@ -1,5 +1,6 @@
+import { Button } from "../../../../components/Button/Button";
+import { usePageTitle } from "../../../../hooks/usePageTitle";
 import { Box } from "../../components/Box/Box";
-import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
 import { Layout } from "../../components/Layout/Layout";
 import classes from "./VerifyEmail.module.scss";
@@ -11,7 +12,7 @@ export function VerifyEmail() {
   const [errorMessage, setErrorMessage] = useState("");
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-
+  usePageTitle("Verify Email");
   const navigate = useNavigate();
 
   const validateEmail = async (code: string) => {

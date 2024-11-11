@@ -1,7 +1,8 @@
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Button } from "../../../../components/Button/Button.tsx";
+import { usePageTitle } from "../../../../hooks/usePageTitle.tsx";
 import { Box } from "../../components/Box/Box";
-import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
 import { Layout } from "../../components/Layout/Layout";
 import { Seperator } from "../../components/Seperator/Seperator";
@@ -13,6 +14,7 @@ export function Signup() {
   const [isLoading, setIsLoading] = useState(false);
   const { signup } = useAuthentication();
   const navigate = useNavigate();
+  usePageTitle("Signup");
   const doSignup = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsLoading(true);

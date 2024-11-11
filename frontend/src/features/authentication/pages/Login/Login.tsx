@@ -1,7 +1,8 @@
 import { FormEvent, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Button } from "../../../../components/Button/Button";
+import { usePageTitle } from "../../../../hooks/usePageTitle";
 import { Box } from "../../components/Box/Box";
-import { Button } from "../../components/Button/Button";
 import { Input } from "../../components/Input/Input";
 import { Layout } from "../../components/Layout/Layout";
 import { Seperator } from "../../components/Seperator/Seperator";
@@ -13,6 +14,7 @@ export function Login() {
   const [isLoading, setIsLoading] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  usePageTitle("Login");
   const { login } = useAuthentication();
   const doLogin = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
