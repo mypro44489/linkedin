@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button/Button.tsx";
 import { usePageTitle } from "../../hooks/usePageTitle.tsx";
 import { Post } from "./components/Post/Post.tsx";
@@ -8,6 +9,7 @@ import classes from "./Feed.module.scss";
 export function Feed() {
   usePageTitle("Feed");
   const [showPostingModal, setShowPostingModal] = useState(false);
+  const navigate = useNavigate();
   const [posts, setPosts] = useState([
     {
       id: 1,
@@ -83,7 +85,13 @@ export function Feed() {
       <div className={classes.left}></div>
       <div className={classes.center}>
         <div className={classes.posting}>
-          <img className={`${classes.top} ${classes.avatar}`} src="/avatar.png" alt="" />
+          <button
+            onClick={() => {
+              navigate("/profile/1");
+            }}
+          >
+            <img className={`${classes.top} ${classes.avatar}`} src="/avatar.png" alt="" />
+          </button>
           <Button outline onClick={() => setShowPostingModal(true)}>
             Start a post
           </Button>

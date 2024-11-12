@@ -39,7 +39,7 @@ const router = createBrowserRouter([
             element: <div>Notifications</div>,
           },
           {
-            path: "/profile",
+            path: "/profile/:id",
             element: <div>Profile</div>,
           },
           {

@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import classes from "./Post.module.scss";
 
 interface PostProps {
@@ -11,10 +12,17 @@ interface PostProps {
 }
 
 export function Post({ content, user }: PostProps) {
+  const navigate = useNavigate();
   return (
     <div className={classes.root}>
       <div className={classes.top}>
-        <img className={classes.avatar} src={user.avatar} alt="" />
+        <button
+          onClick={() => {
+            navigate(`/profile/${user.id}`);
+          }}
+        >
+          <img className={classes.avatar} src={user.avatar} alt="" />
+        </button>
         <div>
           <div className={classes.name}>{user.name}</div>
           <div className={classes.title}>Software Engineer at Docker Inc</div>

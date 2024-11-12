@@ -63,7 +63,7 @@ export function Profile({
               outline
               onClick={() => {
                 setShowProfileMenu(false);
-                navigate("/profile");
+                navigate("/profile/1");
               }}
             >
               View Profile
