@@ -1,12 +1,83 @@
 import { useState } from "react";
 import { Button } from "../../components/Button/Button.tsx";
 import { usePageTitle } from "../../hooks/usePageTitle.tsx";
+import { Post } from "./components/Post/Post.tsx";
 import { PostingMadal } from "./components/PostingModal/PostingMadal.tsx";
 import classes from "./Feed.module.scss";
 
 export function Feed() {
   usePageTitle("Feed");
   const [showPostingModal, setShowPostingModal] = useState(false);
+  const [posts, setPosts] = useState([
+    {
+      id: 1,
+      content: "Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit",
+      user: {
+        id: 1,
+        name: "Jhon Doe",
+        avatar: "/avatar.png",
+      },
+    },
+    {
+      id: 2,
+      content: "Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit",
+      user: {
+        id: 1,
+        name: "Jhon Doe",
+        avatar: "/avatar.png",
+      },
+    },
+
+    {
+      id: 3,
+      content: "Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit",
+      user: {
+        id: 1,
+        name: "Jhon Doe",
+        avatar: "/avatar.png",
+      },
+    },
+
+    {
+      id: 4,
+      content: "Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit",
+      user: {
+        id: 1,
+        name: "Jhon Doe",
+        avatar: "/avatar.png",
+      },
+    },
+
+    {
+      id: 5,
+      content: "Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit",
+      user: {
+        id: 1,
+        name: "Jhon Doe",
+        avatar: "/avatar.png",
+      },
+    },
+
+    {
+      id: 6,
+      content: "Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit",
+      user: {
+        id: 1,
+        name: "Jhon Doe",
+        avatar: "/avatar.png",
+      },
+    },
+
+    {
+      id: 7,
+      content: "Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit",
+      user: {
+        id: 1,
+        name: "Jhon Doe",
+        avatar: "/avatar.png",
+      },
+    },
+  ]);
   return (
     <div className={classes.root}>
       <div className={classes.left}></div>
@@ -21,7 +92,11 @@ export function Feed() {
             setShowPostingModal={setShowPostingModal}
           />
         </div>
-        <div className={classes.feed}></div>
+        <div className={classes.feed}>
+          {posts.map((post) => (
+            <Post key={post.id} {...post} />
+          ))}
+        </div>
       </div>
       <div className={classes.right}></div>
     </div>

@@ -8,8 +8,7 @@
 
   .left,
   .right,
-  .posting,
-  .feed {
+  .posting {
     background-color: white;
     border-radius: 0.3rem;
     border: 1px solid #e0e0e0;
@@ -36,14 +35,16 @@
     grid-template-columns: 15rem 1fr 18rem;
     grid-template-rows: auto;
 
+    .left,
+    .right {
+      display: block;
+    }
     .left {
       height: 30rem;
-      display: block;
     }
 
     .right {
       height: 20rem;
-      display: block;
     }
   }
 }
