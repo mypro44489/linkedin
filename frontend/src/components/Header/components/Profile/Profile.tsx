@@ -1,37 +1,41 @@
-import { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Dispatch, SetStateAction, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthentication } from "../../../../features/authentication/contexts/AuthenticationContextProvider";
 import { Button } from "../../../Button/Button";
 import classes from "./Profile.module.scss";
 
-export function Profile() {
-  const [showMenu, setShowMenu] = useState(false);
+interface ProfileProps {
+  showProfileMenu: boolean;
+  setShowNavigationMenu: Dispatch<SetStateAction<boolean>>;
+  setShowProfileMenu: Dispatch<SetStateAction<boolean>>;
+}
+export function Profile({
+  showProfileMenu,
+  setShowProfileMenu,
+  setShowNavigationMenu,
+}: ProfileProps) {
   const { logout } = useAuthentication();
   const ref = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    const handleClick = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) {
-        setShowMenu(false);
-      }
-    };
-
-    document.addEventListener("click", handleClick);
-
-    return () => {
-      document.removeEventListener("click", handleClick);
-    };
-  }, []);
   return (
     <div className={classes.root} ref={ref}>
-      <button className={classes.toggle} onClick={() => setShowMenu((prev) => !prev)}>
+      <button
+        className={classes.toggle}
+        onClick={() => {
+          setShowProfileMenu((prev) => !prev);
+          if (window.innerWidth <= 1080) {
+            setShowNavigationMenu(false);
+          }
+        }}
+      >
         <img className={`${classes.top} ${classes.avatar}`} src="/avatar.png" alt="" />
         <div className={classes.name}>
           <div>Jhon Doe</div>
         </div>
       </button>
 
-      {showMenu ? (
+      {showProfileMenu ? (
         <div className={classes.menu}>
           <div className={classes.top}>
             <div className={classes.content}>
@@ -42,13 +46,15 @@ export function Profile() {
                 <div className={classes.title}>Software Engineer at Docker Inc</div>
               </div>
             </div>
-            <Button size="small" outline>
+            <Button size="small" outline onClick={() => navigate("profile")}>
               View Profile
             </Button>
           </div>
 
           <div className={classes.bottom}>
-            <Link to="/settings">Settings & Privacy</Link>
+            <Link to="/settings" onClick={() => setShowProfileMenu(false)}>
+              Settings & Privacy
+            </Link>
             <Link
               to="/logout"
               onClick={(e) => {

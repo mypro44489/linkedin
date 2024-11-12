@@ -24,7 +24,7 @@
   .left {
     display: grid;
     gap: 1rem;
-    grid-template-columns: auto 0.7fr 0.3fr;
+    grid-template-columns: auto 1fr;
     align-items: center;
   }
 
@@ -55,6 +55,10 @@
       gap: 1rem;
     }
 
+    .active {
+      color: var(--primary-color);
+    }
+
     svg {
       width: 1.5rem;
       height: 1.5rem;
@@ -68,6 +72,9 @@
   }
 
   @media screen and (min-width: 1080px) {
+    .left {
+      grid-template-columns: auto 0.7fr 0.3fr;
+    }
     .right {
       gap: 2rem;
       ul a,

@@ -1,19 +1,11 @@
 .root {
-  min-height: 100vh;
+  height: 100%;
   display: grid;
+  grid-template-rows: 10rem 1fr 10rem;
   gap: 2rem;
-  grid-template-rows: auto 1fr;
-
-  .content {
-    height: 100%;
-    display: grid;
-    grid-template-rows: 10rem 1fr 10rem;
-    gap: 2rem;
-    padding-inline: 1rem;
-    max-width: 74rem;
-    width: 100%;
-    margin: 0 auto;
-  }
+  max-width: 74rem;
+  width: 100%;
+  margin: 0 auto;
 
   .left,
   .right,
@@ -31,10 +23,8 @@
   }
 
   @media screen and (min-width: 1135px) {
-    .content {
-      grid-template-columns: 15rem 1fr 18rem;
-      grid-template-rows: auto;
-    }
+    grid-template-columns: 15rem 1fr 18rem;
+    grid-template-rows: auto;
 
     .left {
       height: 30rem;
