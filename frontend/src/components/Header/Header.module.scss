@@ -48,11 +48,14 @@
       gap: 0.5rem;
     }
 
-    ul a,
-    ul button {
+    a {
       display: flex;
       align-items: center;
       gap: 1rem;
+
+      &:hover {
+        color: black;
+      }
     }
 
     .active {

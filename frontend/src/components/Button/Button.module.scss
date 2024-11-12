@@ -4,7 +4,6 @@
   align-items: center;
   gap: 0.5rem;
   width: 100%;
-
   background-color: var(--primary-color);
   color: white;
   border-radius: 9999px;
@@ -44,7 +43,7 @@
     font-weight: normal;
 
     &:not(:disabled):hover {
-      border-color: rgb(0, 0, 0);
+      background-color: rgba(0, 0, 0, 0.1);
     }
   }
 }

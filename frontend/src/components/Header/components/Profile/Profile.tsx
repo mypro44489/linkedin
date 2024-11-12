@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useRef } from "react";
+import { Dispatch, SetStateAction, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthentication } from "../../../../features/authentication/contexts/AuthenticationContextProvider";
 import { Button } from "../../../Button/Button";
@@ -17,6 +17,18 @@ export function Profile({
   const { logout } = useAuthentication();
   const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) {
+        setShowProfileMenu(false);
+      }
+    };
+
+    document.addEventListener("click", handleClick);
+
+    return () => document.removeEventListener("click", handleClick);
+  }, [setShowProfileMenu]);
 
   return (
     <div className={classes.root} ref={ref}>
