@@ -1,7 +1,6 @@
 .root {
   height: 100%;
   display: grid;
-  grid-template-rows: 10rem 1fr 10rem;
   gap: 2rem;
   max-width: 74rem;
   width: 100%;
@@ -14,6 +13,10 @@
     background-color: white;
     border-radius: 0.3rem;
     border: 1px solid #e0e0e0;
+  }
+  .left,
+  .right {
+    display: none;
   }
   .center {
     display: grid;
@@ -28,10 +31,12 @@
 
     .left {
       height: 30rem;
+      display: block;
     }
 
     .right {
       height: 20rem;
+      display: block;
     }
   }
 }
