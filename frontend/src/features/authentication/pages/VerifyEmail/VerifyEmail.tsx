@@ -2,7 +2,6 @@ import { Button } from "../../../../components/Button/Button";
 import { usePageTitle } from "../../../../hooks/usePageTitle";
 import { Box } from "../../components/Box/Box";
 import { Input } from "../../components/Input/Input";
-import { Layout } from "../../components/Layout/Layout";
 import classes from "./VerifyEmail.module.scss";
 
 import { useState } from "react";
@@ -70,7 +69,7 @@ export function VerifyEmail() {
   };
 
   return (
-    <Layout className={classes.root}>
+    <div className={classes.root}>
       <Box>
         <h1>Verify your Email</h1>
 
@@ -102,6 +101,6 @@ export function VerifyEmail() {
           </Button>
         </form>
       </Box>
-    </Layout>
+    </div>
   );
 }

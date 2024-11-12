@@ -4,7 +4,6 @@ import { Button } from "../../../../components/Button/Button.tsx";
 import { usePageTitle } from "../../../../hooks/usePageTitle.tsx";
 import { Box } from "../../components/Box/Box";
 import { Input } from "../../components/Input/Input";
-import { Layout } from "../../components/Layout/Layout";
 import { Seperator } from "../../components/Seperator/Seperator";
 import { useAuthentication } from "../../contexts/AuthenticationContextProvider.tsx";
 import classes from "./Signup.module.scss";
@@ -34,7 +33,7 @@ export function Signup() {
     }
   };
   return (
-    <Layout className={classes.root}>
+    <div className={classes.root}>
       <Box>
         <h1>Sign up</h1>
         <p>Make the most of your professional life.</p>
@@ -62,6 +61,6 @@ export function Signup() {
           Already on LinkedIn? <Link to="/login">Sign in</Link>
         </div>
       </Box>
-    </Layout>
+    </div>
   );
 }

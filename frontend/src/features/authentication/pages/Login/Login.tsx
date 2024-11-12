@@ -4,7 +4,6 @@ import { Button } from "../../../../components/Button/Button";
 import { usePageTitle } from "../../../../hooks/usePageTitle";
 import { Box } from "../../components/Box/Box";
 import { Input } from "../../components/Input/Input";
-import { Layout } from "../../components/Layout/Layout";
 import { Seperator } from "../../components/Seperator/Seperator";
 import { useAuthentication } from "../../contexts/AuthenticationContextProvider";
 import classes from "./Login.module.scss";
@@ -37,7 +36,7 @@ export function Login() {
     }
   };
   return (
-    <Layout className={classes.root}>
+    <div className={classes.root}>
       <Box>
         <h1>Sign in</h1>
         <p>Stay updated on your professional world.</p>
@@ -61,6 +60,6 @@ export function Login() {
           New to LinkedIn? <Link to="/signup">Join now</Link>
         </div>
       </Box>
-    </Layout>
+    </div>
   );
 }

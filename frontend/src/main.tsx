@@ -1,7 +1,8 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { Layout } from "./components/Layout/Layout.tsx";
+import { ApplicationLayout } from "./components/ApplicationLayout/ApplicationLayout.tsx";
+import { AuthenticationLayout } from "./features/authentication/components/AuthenticationLayout/AuthenticationLayout.tsx";
 import { AuthenticationContextProvider } from "./features/authentication/contexts/AuthenticationContextProvider";
 import { Login } from "./features/authentication/pages/Login/Login";
 import { ResetPassword } from "./features/authentication/pages/ResetPassword/ResetPassword";
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Layout />,
+        element: <ApplicationLayout />,
         children: [
           {
             index: true,
@@ -49,20 +50,25 @@ const router = createBrowserRouter([
         ],
       },
       {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/signup",
-        element: <Signup />,
-      },
-      {
-        path: "/request-password-reset",
-        element: <ResetPassword />,
-      },
-      {
-        path: "/verify-email",
-        element: <VerifyEmail />,
+        element: <AuthenticationLayout />,
+        children: [
+          {
+            path: "/login",
+            element: <Login />,
+          },
+          {
+            path: "/signup",
+            element: <Signup />,
+          },
+          {
+            path: "/request-password-reset",
+            element: <ResetPassword />,
+          },
+          {
+            path: "/verify-email",
+            element: <VerifyEmail />,
+          },
+        ],
       },
     ],
   },

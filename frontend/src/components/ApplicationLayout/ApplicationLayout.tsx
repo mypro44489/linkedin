@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import { Header } from "../Header/Header";
-import classes from "./Layout.module.scss";
-export function Layout() {
+import classes from "./ApplicationLayout.module.scss";
+export function ApplicationLayout() {
   return (
     <div className={classes.root}>
       <Header />
