@@ -43,8 +43,10 @@ export function Header() {
                   to="/"
                   className={({ isActive }) => (isActive ? classes.active : "")}
                   onClick={() => {
-                    setShowNavigationMenu(false);
                     setShowProfileMenu(false);
+                    if (window.innerWidth <= 1080) {
+                      setShowNavigationMenu(false);
+                    }
                   }}
                 >
                   <svg
@@ -63,8 +65,10 @@ export function Header() {
               <li>
                 <NavLink
                   onClick={() => {
-                    setShowNavigationMenu(false);
                     setShowProfileMenu(false);
+                    if (window.innerWidth <= 1080) {
+                      setShowNavigationMenu(false);
+                    }
                   }}
                   to="/network"
                   className={({ isActive }) => (isActive ? classes.active : "")}
@@ -85,8 +89,10 @@ export function Header() {
                   to="/jobs"
                   className={({ isActive }) => (isActive ? classes.active : "")}
                   onClick={() => {
-                    setShowNavigationMenu(false);
                     setShowProfileMenu(false);
+                    if (window.innerWidth <= 1080) {
+                      setShowNavigationMenu(false);
+                    }
                   }}
                 >
                   <svg
@@ -103,8 +109,10 @@ export function Header() {
               <li>
                 <NavLink
                   onClick={() => {
-                    setShowNavigationMenu(false);
                     setShowProfileMenu(false);
+                    if (window.innerWidth <= 1080) {
+                      setShowNavigationMenu(false);
+                    }
                   }}
                   to="/messaging"
                   className={({ isActive }) => (isActive ? classes.active : "")}
@@ -123,8 +131,10 @@ export function Header() {
               <li>
                 <NavLink
                   onClick={() => {
-                    setShowNavigationMenu(false);
                     setShowProfileMenu(false);
+                    if (window.innerWidth <= 1080) {
+                      setShowNavigationMenu(false);
+                    }
                   }}
                   to="/notifications"
                   className={({ isActive }) => (isActive ? classes.active : "")}

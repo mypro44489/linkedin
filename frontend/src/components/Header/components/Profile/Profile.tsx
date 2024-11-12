@@ -46,7 +46,14 @@ export function Profile({
                 <div className={classes.title}>Software Engineer at Docker Inc</div>
               </div>
             </div>
-            <Button size="small" outline onClick={() => navigate("profile")}>
+            <Button
+              size="small"
+              outline
+              onClick={() => {
+                setShowProfileMenu(false);
+                navigate("/profile");
+              }}
+            >
               View Profile
             </Button>
           </div>
