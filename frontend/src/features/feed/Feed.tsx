@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button/Button.tsx";
 import { usePageTitle } from "../../hooks/usePageTitle.tsx";
+import { LeftSidebar } from "./components/LeftSidebar/LeftSidebar.tsx";
 import { Post } from "./components/Post/Post.tsx";
 import { PostingMadal } from "./components/PostingModal/PostingMadal.tsx";
 import classes from "./Feed.module.scss";
@@ -82,7 +83,9 @@ export function Feed() {
   ]);
   return (
     <div className={classes.root}>
-      <div className={classes.left}></div>
+      <div className={classes.left}>
+        <LeftSidebar />
+      </div>
       <div className={classes.center}>
         <div className={classes.posting}>
           <button
