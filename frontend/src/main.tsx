@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, Navigate, RouterProvider } from "react-router-dom";
 import { ApplicationLayout } from "./components/ApplicationLayout/ApplicationLayout.tsx";
 import { AuthenticationLayout } from "./features/authentication/components/AuthenticationLayout/AuthenticationLayout.tsx";
 import { AuthenticationContextProvider } from "./features/authentication/contexts/AuthenticationContextProvider";
@@ -74,6 +74,10 @@ const router = createBrowserRouter([
             element: <Profile />,
           },
         ],
+      },
+      {
+        path: "*",
+        element: <Navigate to="/" />,
       },
     ],
   },
