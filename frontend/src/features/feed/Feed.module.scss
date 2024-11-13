@@ -6,7 +6,6 @@
   width: 100%;
   margin: 0 auto;
 
-  .right,
   .posting {
     background-color: white;
     border-radius: 0.3rem;
@@ -31,19 +30,12 @@
   }
 
   @media screen and (min-width: 1135px) {
-    grid-template-columns: 15rem 1fr 18rem;
-    grid-template-rows: auto;
+    grid-template-columns: 14rem 1fr 20rem;
+    align-items: flex-start;
 
     .left,
     .right {
       display: block;
-    }
-    .left {
-      height: 30rem;
-    }
-
-    .right {
-      height: 20rem;
     }
   }
 }

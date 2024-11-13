@@ -5,6 +5,7 @@ import { usePageTitle } from "../../hooks/usePageTitle.tsx";
 import { LeftSidebar } from "./components/LeftSidebar/LeftSidebar.tsx";
 import { Post } from "./components/Post/Post.tsx";
 import { PostingMadal } from "./components/PostingModal/PostingMadal.tsx";
+import { RightSidebar } from "./components/RightSidebar/RightSidebar.tsx";
 import classes from "./Feed.module.scss";
 
 export function Feed() {
@@ -112,7 +113,9 @@ export function Feed() {
           ))}
         </div>
       </div>
-      <div className={classes.right}></div>
+      <div className={classes.right}>
+        <RightSidebar />
+      </div>
     </div>
   );
 }
