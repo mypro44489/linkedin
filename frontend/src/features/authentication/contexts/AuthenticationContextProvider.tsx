@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
 import { Loader } from "../../../components/Loader/Loader";
 
@@ -11,10 +11,12 @@ export interface User {
   company?: string;
   position?: string;
   location?: string;
+  profileComplete: boolean;
 }
 
 interface AuthenticationContextType {
   user: User | null;
+  setUser: Dispatch<SetStateAction<User | null>>;
   login: (email: string, password: string) => Promise<void>;
   logout: () => void;
   signup: (email: string, password: string) => Promise<void>;
@@ -110,7 +112,33 @@ export function AuthenticationContextProvider() {
     return <Navigate to="/authentication/login" />;
   }
 
-  if (user && user.emailVerified && isOnAuthPage) {
+  if (user && !user.emailVerified && location.pathname !== "/authentication/verify-email") {
+    return <Navigate to="/authentication/verify-email" />;
+  }
+
+  if (user && user.emailVerified && location.pathname == "/authentication/verify-email") {
+    return <Navigate to="/" />;
+  }
+
+  if (
+    user &&
+    user.emailVerified &&
+    !user.profileComplete &&
+    !location.pathname.includes("/authentication/profile")
+  ) {
+    return <Navigate to={`/authentication/profile/${user.id}`} />;
+  }
+
+  if (
+    user &&
+    user.emailVerified &&
+    user.profileComplete &&
+    location.pathname.includes("/authentication/profile")
+  ) {
+    return <Navigate to="/" />;
+  }
+
+  if (user && isOnAuthPage) {
     return <Navigate to="/" />;
   }
 
@@ -121,9 +149,9 @@ export function AuthenticationContextProvider() {
         login,
         logout,
         signup,
+        setUser,
       }}
     >
-      {user && !user.emailVerified ? <Navigate to="/authentication/verify-email" /> : null}
       <Outlet />
     </AuthenticationContext.Provider>
   );

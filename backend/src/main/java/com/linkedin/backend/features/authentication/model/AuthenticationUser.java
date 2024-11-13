@@ -29,7 +29,7 @@ public class AuthenticationUser {
     private String company = null;
     private String position = null;
     private String location = null;
-
+    private Boolean profileComplete = false;
 
     public AuthenticationUser(String email, String password) {
         this.email = email;
@@ -97,6 +97,7 @@ public class AuthenticationUser {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+        updateProfileCompletionStatus();
     }
 
     public String getLastName() {
@@ -105,6 +106,7 @@ public class AuthenticationUser {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+        updateProfileCompletionStatus();
     }
 
 
@@ -114,6 +116,7 @@ public class AuthenticationUser {
 
     public void setLocation(String location) {
         this.location = location;
+        updateProfileCompletionStatus();
     }
 
     public String getPosition() {
@@ -122,6 +125,7 @@ public class AuthenticationUser {
 
     public void setPosition(String position) {
         this.position = position;
+        updateProfileCompletionStatus();
     }
 
     public String getCompany() {
@@ -134,5 +138,13 @@ public class AuthenticationUser {
 
     public Long getId() {
         return id;
+    }
+
+    public void updateProfileCompletionStatus() {
+        this.profileComplete = (this.firstName != null && this.lastName != null && this.company != null && this.position != null && this.location != null);
+    }
+
+    public Boolean getProfileComplete() {
+        return profileComplete;
     }
 }

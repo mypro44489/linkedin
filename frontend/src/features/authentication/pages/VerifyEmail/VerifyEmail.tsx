@@ -6,9 +6,11 @@ import classes from "./VerifyEmail.module.scss";
 
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useAuthentication } from "../../contexts/AuthenticationContextProvider";
 
 export function VerifyEmail() {
   const [errorMessage, setErrorMessage] = useState("");
+  const { user, setUser } = useAuthentication();
   const [message, setMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   usePageTitle("Verify Email");
@@ -30,6 +32,7 @@ export function VerifyEmail() {
       );
       if (response.ok) {
         setErrorMessage("");
+        setUser({ ...user!, emailVerified: true });
         navigate("/");
       }
       const { message } = await response.json();

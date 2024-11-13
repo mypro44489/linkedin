@@ -57,7 +57,7 @@ public class AuthenticationController {
         return "Password reset successfully.";
     }
 
-    @PutMapping("/{id}/profile")
+    @PutMapping("/profile/{id}")
     public AuthenticationUser updateUserProfile(
             @RequestAttribute("authenticatedUser") AuthenticationUser user,
             @PathVariable Long id,

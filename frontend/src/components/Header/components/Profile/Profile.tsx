@@ -17,6 +17,7 @@ export function Profile({
   const { logout } = useAuthentication();
   const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
+  const { user } = useAuthentication();
 
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
@@ -43,7 +44,7 @@ export function Profile({
       >
         <img className={`${classes.top} ${classes.avatar}`} src="/avatar.png" alt="" />
         <div className={classes.name}>
-          <div>Jhon Doe</div>
+          <div>{user?.firstName + " " + user?.lastName?.charAt(0) + "."}</div>
         </div>
       </button>
 
@@ -52,10 +53,9 @@ export function Profile({
           <div className={classes.top}>
             <div className={classes.content}>
               <img className={`${classes.left} ${classes.avatar}`} src="/avatar.png" alt="" />
-
               <div className={classes.right}>
-                <div className={classes.name}>Jhon Doe</div>
-                <div className={classes.title}>Software Engineer at Docker Inc</div>
+                <div className={classes.name}>{user?.firstName + " " + user?.lastName}</div>
+                <div className={classes.title}>{user?.position + " at " + user?.company}</div>
               </div>
             </div>
             <Button

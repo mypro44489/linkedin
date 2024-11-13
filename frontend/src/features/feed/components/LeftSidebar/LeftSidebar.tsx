@@ -1,5 +1,7 @@
+import { useAuthentication } from "../../../authentication/contexts/AuthenticationContextProvider";
 import classes from "./LeftSidebar.module.scss";
 export function LeftSidebar() {
+  const { user } = useAuthentication();
   return (
     <div className={classes.root}>
       <div className={classes.cover}>
@@ -11,8 +13,8 @@ export function LeftSidebar() {
       <div className={classes.avatar}>
         <img src="/avatar.png" alt="" />
       </div>
-      <div className={classes.name}>Jhon Doe</div>
-      <div className={classes.title}>Software Engineer at Docker Inc</div>
+      <div className={classes.name}>{user?.firstName + " " + user?.lastName}</div>
+      <div className={classes.title}>{user?.position + " at " + user?.company}</div>
       <div className={classes.info}>
         <div className={classes.item}>
           <div className={classes.label}>Profile viewers</div>

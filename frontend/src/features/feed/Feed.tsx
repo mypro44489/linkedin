@@ -19,7 +19,7 @@ export function Feed() {
       user: {
         id: 1,
         name: "Jhon Doe",
-        avatar: "/avatar.png",
+        avatar: "https://i.pravatar.cc/300",
       },
     },
     {
@@ -28,7 +28,7 @@ export function Feed() {
       user: {
         id: 1,
         name: "Jhon Doe",
-        avatar: "/avatar.png",
+        avatar: "https://i.pravatar.cc/300",
       },
     },
 
@@ -38,7 +38,7 @@ export function Feed() {
       user: {
         id: 1,
         name: "Jhon Doe",
-        avatar: "/avatar.png",
+        avatar: "https://i.pravatar.cc/300",
       },
     },
 
@@ -48,7 +48,7 @@ export function Feed() {
       user: {
         id: 1,
         name: "Jhon Doe",
-        avatar: "/avatar.png",
+        avatar: "https://i.pravatar.cc/300",
       },
     },
 
@@ -58,7 +58,7 @@ export function Feed() {
       user: {
         id: 1,
         name: "Jhon Doe",
-        avatar: "/avatar.png",
+        avatar: "https://i.pravatar.cc/300",
       },
     },
 
@@ -68,7 +68,7 @@ export function Feed() {
       user: {
         id: 1,
         name: "Jhon Doe",
-        avatar: "/avatar.png",
+        avatar: "https://i.pravatar.cc/300",
       },
     },
 
@@ -78,7 +78,7 @@ export function Feed() {
       user: {
         id: 1,
         name: "Jhon Doe",
-        avatar: "/avatar.png",
+        avatar: "https://i.pravatar.cc/300",
       },
     },
   ]);
