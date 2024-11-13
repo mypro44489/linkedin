@@ -5,7 +5,6 @@ import { Loader } from "../../../components/Loader/Loader";
 export interface User {
   id: string;
   email: string;
-  name: string;
   emailVerified: boolean;
 }
 
