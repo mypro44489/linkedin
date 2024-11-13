@@ -120,8 +120,22 @@ export function Profile() {
               Back
             </Button>
           )}
-          {step < 2 && <Button onClick={() => setStep((prev) => prev + 1)}>Next</Button>}
-          {step === 2 && <Button onClick={onSubmit}>Submit</Button>}
+          {step < 2 && (
+            <Button
+              disabled={
+                (step === 0 && (!data.firstName || !data.lastName)) ||
+                (step === 1 && (!data.company || !data.position))
+              }
+              onClick={() => setStep((prev) => prev + 1)}
+            >
+              Next
+            </Button>
+          )}
+          {step === 2 && (
+            <Button disabled={!data.location} onClick={onSubmit}>
+              Submit
+            </Button>
+          )}
         </div>
       </Box>
     </div>
