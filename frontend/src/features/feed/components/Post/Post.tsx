@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import classes from "./Post.module.scss";
 
-interface PostProps {
+export interface Post {
   id: number;
   content: string;
   user: {
@@ -11,25 +11,29 @@ interface PostProps {
   };
 }
 
-export function Post({ content, user }: PostProps) {
+interface PostProps {
+  post: Post;
+}
+
+export function Post({ post }: PostProps) {
   const navigate = useNavigate();
   return (
     <div className={classes.root}>
       <div className={classes.top}>
         <button
           onClick={() => {
-            navigate(`/profile/${user.id}`);
+            navigate(`/profile/${post.user.id}`);
           }}
         >
-          <img className={classes.avatar} src={user.avatar} alt="" />
+          <img className={classes.avatar} src={post.user.avatar} alt="" />
         </button>
         <div>
-          <div className={classes.name}>{user.name}</div>
+          <div className={classes.name}>{post.user.name}</div>
           <div className={classes.title}>Software Engineer at Docker Inc</div>
           <div className={classes.date}>2 hours ago</div>
         </div>
       </div>
-      <div className={classes.content}>{content}</div>
+      <div className={classes.content}>{post.content}</div>
       <div className={classes.actions}>
         <button>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

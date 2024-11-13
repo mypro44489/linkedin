@@ -98,11 +98,14 @@ export function Feed() {
           <PostingMadal
             showPostingModal={showPostingModal}
             setShowPostingModal={setShowPostingModal}
+            onSubmit={(post: Post) => {
+              setPosts((prev) => [post, ...prev]);
+            }}
           />
         </div>
         <div className={classes.feed}>
           {posts.map((post) => (
-            <Post key={post.id} {...post} />
+            <Post key={post.id} post={post} />
           ))}
         </div>
       </div>
