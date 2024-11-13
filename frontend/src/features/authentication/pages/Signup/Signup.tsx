@@ -1,9 +1,9 @@
 import { FormEvent, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../../../components/Button/Button.tsx";
+import { Input } from "../../../../components/Input/Input.tsx";
 import { usePageTitle } from "../../../../hooks/usePageTitle.tsx";
 import { Box } from "../../components/Box/Box";
-import { Input } from "../../components/Input/Input";
 import { Seperator } from "../../components/Seperator/Seperator";
 import { useAuthentication } from "../../contexts/AuthenticationContextProvider.tsx";
 import classes from "./Signup.module.scss";

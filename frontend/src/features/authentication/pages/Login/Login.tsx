@@ -1,9 +1,9 @@
 import { FormEvent, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "../../../../components/Button/Button";
+import { Input } from "../../../../components/Input/Input";
 import { usePageTitle } from "../../../../hooks/usePageTitle";
 import { Box } from "../../components/Box/Box";
-import { Input } from "../../components/Input/Input";
 import { Seperator } from "../../components/Seperator/Seperator";
 import { useAuthentication } from "../../contexts/AuthenticationContextProvider";
 import classes from "./Login.module.scss";

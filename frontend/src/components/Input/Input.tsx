@@ -6,7 +6,6 @@ type InputProps = InputHTMLAttributes<HTMLInputElement> & {
   size?: "small" | "medium" | "large";
 };
 export function Input({ label, size, width, ...others }: InputProps) {
-  console.log(size);
   return (
     <div className={`${classes.root} ${classes[size || "large"]}`}>
       {label ? (

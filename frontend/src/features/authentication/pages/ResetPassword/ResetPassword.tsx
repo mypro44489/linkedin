@@ -1,7 +1,7 @@
 import { Button } from "../../../../components/Button/Button";
+import { Input } from "../../../../components/Input/Input";
 import { usePageTitle } from "../../../../hooks/usePageTitle";
 import { Box } from "../../components/Box/Box";
-import { Input } from "../../components/Input/Input";
 import classes from "./ResetPassword.module.scss";
 
 import { useState } from "react";

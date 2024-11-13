@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
-import { Input } from "../../features/authentication/components/Input/Input";
 import { useAuthentication } from "../../features/authentication/contexts/AuthenticationContextProvider";
+import { Input } from "../Input/Input";
 import classes from "./Header.module.scss";
 import { Profile } from "./components/Profile/Profile";
 export function Header() {
