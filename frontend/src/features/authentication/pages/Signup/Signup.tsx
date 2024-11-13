@@ -58,7 +58,7 @@ export function Signup() {
         </form>
         <Seperator>Or</Seperator>
         <div className={classes.register}>
-          Already on LinkedIn? <Link to="/login">Sign in</Link>
+          Already on LinkedIn? <Link to="/authentication/login">Sign in</Link>
         </div>
       </Box>
     </div>

@@ -53,11 +53,11 @@ export function Login() {
           <Button type="submit" disabled={isLoading}>
             {isLoading ? "..." : "Sign in"}
           </Button>
-          <Link to="/request-password-reset">Forgot password?</Link>
+          <Link to="/authentication/request-password-reset">Forgot password?</Link>
         </form>
         <Seperator>Or</Seperator>
         <div className={classes.register}>
-          New to LinkedIn? <Link to="/signup">Join now</Link>
+          New to LinkedIn? <Link to="/authentication/signup">Join now</Link>
         </div>
       </Box>
     </div>

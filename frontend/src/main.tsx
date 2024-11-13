@@ -5,6 +5,7 @@ import { ApplicationLayout } from "./components/ApplicationLayout/ApplicationLay
 import { AuthenticationLayout } from "./features/authentication/components/AuthenticationLayout/AuthenticationLayout.tsx";
 import { AuthenticationContextProvider } from "./features/authentication/contexts/AuthenticationContextProvider";
 import { Login } from "./features/authentication/pages/Login/Login";
+import { Profile } from "./features/authentication/pages/Profile/Profile.tsx";
 import { ResetPassword } from "./features/authentication/pages/ResetPassword/ResetPassword";
 import { Signup } from "./features/authentication/pages/Signup/Signup";
 import { VerifyEmail } from "./features/authentication/pages/VerifyEmail/VerifyEmail.tsx";
@@ -16,7 +17,6 @@ const router = createBrowserRouter([
     element: <AuthenticationContextProvider />,
     children: [
       {
-        path: "/",
         element: <ApplicationLayout />,
         children: [
           {
@@ -50,23 +50,28 @@ const router = createBrowserRouter([
         ],
       },
       {
+        path: "/authentication",
         element: <AuthenticationLayout />,
         children: [
           {
-            path: "/login",
+            path: "login",
             element: <Login />,
           },
           {
-            path: "/signup",
+            path: "signup",
             element: <Signup />,
           },
           {
-            path: "/request-password-reset",
+            path: "request-password-reset",
             element: <ResetPassword />,
           },
           {
-            path: "/verify-email",
+            path: "verify-email",
             element: <VerifyEmail />,
+          },
+          {
+            path: "user/:id",
+            element: <Profile />,
           },
         ],
       },

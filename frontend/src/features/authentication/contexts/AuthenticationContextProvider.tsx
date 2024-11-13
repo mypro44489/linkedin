@@ -6,6 +6,11 @@ export interface User {
   id: string;
   email: string;
   emailVerified: boolean;
+  firstName?: string;
+  lastName?: string;
+  company?: string;
+  position?: string;
+  location?: string;
 }
 
 interface AuthenticationContextType {
@@ -27,9 +32,9 @@ export function AuthenticationContextProvider() {
   const [isLoading, setIsLoading] = useState(true);
 
   const isOnAuthPage =
-    location.pathname === "/login" ||
-    location.pathname === "/signup" ||
-    location.pathname === "/request-password-reset";
+    location.pathname === "/authentication/login" ||
+    location.pathname === "/authentication/signup" ||
+    location.pathname === "/authentication/request-password-reset";
 
   const login = async (email: string, password: string) => {
     const response = await fetch(import.meta.env.VITE_API_URL + "/api/v1/authentication/login", {
@@ -102,7 +107,7 @@ export function AuthenticationContextProvider() {
   }
 
   if (!isLoading && !user && !isOnAuthPage) {
-    return <Navigate to="/login" />;
+    return <Navigate to="/authentication/login" />;
   }
 
   if (user && user.emailVerified && isOnAuthPage) {
@@ -118,7 +123,7 @@ export function AuthenticationContextProvider() {
         signup,
       }}
     >
-      {user && !user.emailVerified ? <Navigate to="/verify-email" /> : null}
+      {user && !user.emailVerified ? <Navigate to="/authentication/verify-email" /> : null}
       <Outlet />
     </AuthenticationContext.Provider>
   );

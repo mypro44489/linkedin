@@ -24,6 +24,13 @@ public class AuthenticationUser {
     private String passwordResetToken = null;
     private LocalDateTime passwordResetTokenExpiryDate = null;
 
+    private String firstName = null;
+    private String lastName = null;
+    private String company = null;
+    private String position = null;
+    private String location = null;
+
+
     public AuthenticationUser(String email, String password) {
         this.email = email;
         this.password = password;
@@ -82,5 +89,50 @@ public class AuthenticationUser {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public String getPosition() {
+        return position;
+    }
+
+    public void setPosition(String position) {
+        this.position = position;
+    }
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public Long getId() {
+        return id;
     }
 }
