@@ -24,9 +24,15 @@ public class PostController {
         return ResponseEntity.ok(post);
     }
 
+    @GetMapping
+    public ResponseEntity<List<Post>> getAllPosts() {
+        List<Post> posts = postService.getAllPosts();
+        return ResponseEntity.ok(posts);
+    }
+
     @PostMapping("/{postId}/like")
-    public ResponseEntity<Post> likePost(@PathVariable Long postId, @RequestParam Long userId) {
-        Post post = postService.likePost(postId, userId);
+    public ResponseEntity<Post> likePost(@PathVariable Long postId, @RequestAttribute("authenticatedUser") AuthenticationUser user) {
+        Post post = postService.likePost(postId, user.getId());
         return ResponseEntity.ok(post);
     }
 
