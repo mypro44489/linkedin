@@ -1,11 +1,13 @@
 package com.linkedin.backend.features.authentication.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.linkedin.backend.features.feed.model.Post;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity(name = "users")
 public class AuthenticationUser {
@@ -30,6 +32,10 @@ public class AuthenticationUser {
     private String position = null;
     private String location = null;
     private Boolean profileComplete = false;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts;
 
     public AuthenticationUser(String email, String password) {
         this.email = email;
@@ -146,5 +152,13 @@ public class AuthenticationUser {
 
     public Boolean getProfileComplete() {
         return profileComplete;
+    }
+
+    public List<Post> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<Post> posts) {
+        this.posts = posts;
     }
 }
