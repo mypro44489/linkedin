@@ -1,14 +1,11 @@
 import { useNavigate } from "react-router-dom";
+import { User } from "../../../authentication/contexts/AuthenticationContextProvider";
 import classes from "./Post.module.scss";
 
 export interface Post {
   id: number;
   content: string;
-  user: {
-    id: number;
-    name: string;
-    avatar: string;
-  };
+  author: User;
 }
 
 interface PostProps {
@@ -22,14 +19,14 @@ export function Post({ post }: PostProps) {
       <div className={classes.top}>
         <button
           onClick={() => {
-            navigate(`/profile/${post.user.id}`);
+            navigate(`/profile/${post.author.id}`);
           }}
         >
-          <img className={classes.avatar} src={post.user.avatar} alt="" />
+          <img className={classes.avatar} src="/avatar.png" alt="" />
         </button>
         <div>
-          <div className={classes.name}>{post.user.name}</div>
-          <div className={classes.title}>Software Engineer at Docker Inc</div>
+          <div className={classes.name}>{post.author.firstName + " " + post.author.lastName}</div>
+          <div className={classes.title}>{post.author.position + " at " + post.author.company}</div>
           <div className={classes.date}>2 hours ago</div>
         </div>
       </div>

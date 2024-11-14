@@ -31,6 +31,12 @@ public class LoadDatabaseConfiguration {
                     user.setPosition("Software Engineer");
                     user.setCompany("Docker Inc.");
                     user.setLocation("San Francisco, CA");
+                } else {
+                    user.setFirstName("User");
+                    user.setLastName(i + "");
+                    user.setPosition("Software Engineer");
+                    user.setCompany("Docker Inc.");
+                    user.setLocation("San Francisco, CA");
                 }
                 authenticationUserRepository.save(user);
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button/Button.tsx";
 import { usePageTitle } from "../../hooks/usePageTitle.tsx";
@@ -12,76 +12,33 @@ export function Feed() {
   usePageTitle("Feed");
   const [showPostingModal, setShowPostingModal] = useState(false);
   const navigate = useNavigate();
-  const [posts, setPosts] = useState([
-    {
-      id: 1,
-      content: "Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit",
-      user: {
-        id: 1,
-        name: "Jhon Doe",
-        avatar: "https://i.pravatar.cc/300",
-      },
-    },
-    {
-      id: 2,
-      content: "Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit",
-      user: {
-        id: 1,
-        name: "Jhon Doe",
-        avatar: "https://i.pravatar.cc/300",
-      },
-    },
+  const [posts, setPosts] = useState<Post[]>([]);
+  const [error, setError] = useState("");
 
-    {
-      id: 3,
-      content: "Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit",
-      user: {
-        id: 1,
-        name: "Jhon Doe",
-        avatar: "https://i.pravatar.cc/300",
-      },
-    },
-
-    {
-      id: 4,
-      content: "Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit",
-      user: {
-        id: 1,
-        name: "Jhon Doe",
-        avatar: "https://i.pravatar.cc/300",
-      },
-    },
-
-    {
-      id: 5,
-      content: "Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit",
-      user: {
-        id: 1,
-        name: "Jhon Doe",
-        avatar: "https://i.pravatar.cc/300",
-      },
-    },
-
-    {
-      id: 6,
-      content: "Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit",
-      user: {
-        id: 1,
-        name: "Jhon Doe",
-        avatar: "https://i.pravatar.cc/300",
-      },
-    },
-
-    {
-      id: 7,
-      content: "Lorem Ipsum Dolor Sit Amet Consectetur Adipisicing Elit",
-      user: {
-        id: 1,
-        name: "Jhon Doe",
-        avatar: "https://i.pravatar.cc/300",
-      },
-    },
-  ]);
+  useEffect(() => {
+    const fetchPosts = async () => {
+      try {
+        const response = await fetch(import.meta.env.VITE_API_URL + "/api/v1/posts", {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        });
+        if (!response.ok) {
+          const { message } = await response.json();
+          throw new Error(message);
+        }
+        const data = await response.json();
+        setPosts(data);
+      } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError("An error occurred. Please try again later.");
+        }
+      }
+    };
+    fetchPosts();
+  }, []);
   return (
     <div className={classes.root}>
       <div className={classes.left}>
