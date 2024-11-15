@@ -43,20 +43,31 @@ export function Post({ post, setPosts }: PostProps) {
   }, [post.likes, user?.id]);
 
   useEffect(() => {
-    setPosts((prev) =>
-      prev.map((p) => {
-        if (p.id === post.id) {
-          return {
-            ...p,
-            likes: postLiked
-              ? [user!, ...(p.likes || [])]
-              : (p.likes?.filter((like) => like.id !== user?.id) as User[]),
-          };
-        }
-        return p;
-      })
-    );
+    setPosts((prev) => {
+      if (postLiked) {
+        return prev.map((p) => {
+          if (p.id === post.id) {
+            return {
+              ...p,
+              likes: p.likes ? [user!, ...p.likes] : [user!],
+            };
+          }
+          return p;
+        });
+      } else {
+        return prev.map((p) => {
+          if (p.id === post.id) {
+            return {
+              ...p,
+              likes: p.likes?.filter((like) => like.id !== user?.id),
+            };
+          }
+          return p;
+        });
+      }
+    });
   }, [post.id, postLiked, setPosts, user]);
+
   const like = async () => {
     setPostLiked((prev) => !prev);
 
