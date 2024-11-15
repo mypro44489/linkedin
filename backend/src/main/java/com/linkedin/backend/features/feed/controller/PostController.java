@@ -27,6 +27,12 @@ public class PostController {
         return ResponseEntity.ok(post);
     }
 
+    @DeleteMapping("/{postId}")
+    public ResponseEntity<Void> deletePost(@PathVariable Long postId, @RequestAttribute("authenticatedUser") AuthenticationUser user) {
+        postService.deletePost(postId, user.getId());
+        return ResponseEntity.noContent().build();
+    }
+
     @PostMapping("/{postId}/comments")
     public ResponseEntity<Comment> addComment(@PathVariable Long postId, @RequestBody CommentDto commentDto, @RequestAttribute("authenticatedUser") AuthenticationUser user) {
         Comment comment = postService.addComment(postId, user.getId(), commentDto.getContent());

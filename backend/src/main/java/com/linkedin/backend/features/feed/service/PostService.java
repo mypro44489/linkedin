@@ -33,6 +33,15 @@ public class PostService {
         return postRepository.save(post);
     }
 
+    public void deletePost(Long postId, Long userId) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found"));
+        AuthenticationUser user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        if (!post.getAuthor().equals(user)) {
+            throw new IllegalArgumentException("User is not the author of the post");
+        }
+        postRepository.delete(post);
+    }
+
     public Post likePost(Long postId, Long userId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found"));
         AuthenticationUser user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
