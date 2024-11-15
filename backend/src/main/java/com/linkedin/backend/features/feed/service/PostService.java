@@ -33,6 +33,10 @@ public class PostService {
         return postRepository.save(post);
     }
 
+    public Post getPost(Long postId) {
+        return postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found"));
+    }
+
     public void deletePost(Long postId, Long userId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found"));
         AuthenticationUser user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -60,6 +64,15 @@ public class PostService {
         return commentRepository.save(comment);
     }
 
+    public void deleteComment(Long commentId, Long userId) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("Comment not found"));
+        AuthenticationUser user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        if (!comment.getAuthor().equals(user)) {
+            throw new IllegalArgumentException("User is not the author of the comment");
+        }
+        commentRepository.delete(comment);
+    }
+
     public List<Post> getPostsByUserId(Long userId) {
         return postRepository.findByAuthorId(userId);
     }
@@ -71,4 +84,6 @@ public class PostService {
     public List<Post> getAllPosts() {
         return postRepository.findAll();
     }
+
+
 }

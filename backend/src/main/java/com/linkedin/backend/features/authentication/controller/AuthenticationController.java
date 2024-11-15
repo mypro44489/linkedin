@@ -28,6 +28,12 @@ public class AuthenticationController {
         return authenticationUserService.register(registerRequestBody);
     }
 
+    @DeleteMapping("/delete")
+    public String deleteUser(@RequestAttribute("authenticatedUser") AuthenticationUser user) {
+        authenticationUserService.deleteUser(user.getId());
+        return "User deleted successfully.";
+    }
+
     @GetMapping("/user")
     public AuthenticationUser getUser(@RequestAttribute("authenticatedUser") AuthenticationUser user) {
         return user;

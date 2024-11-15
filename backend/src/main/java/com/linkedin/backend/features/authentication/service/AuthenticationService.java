@@ -7,6 +7,9 @@ import com.linkedin.backend.features.authentication.repository.AuthenticationUse
 import com.linkedin.backend.features.authentication.utils.EmailService;
 import com.linkedin.backend.features.authentication.utils.Encoder;
 import com.linkedin.backend.features.authentication.utils.JsonWebToken;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
+import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -24,6 +27,9 @@ public class AuthenticationService {
     private final Encoder encoder;
     private final JsonWebToken jsonWebToken;
     private final EmailService emailService;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public AuthenticationService(AuthenticationUserRepository authenticationUserRepository, Encoder encoder, JsonWebToken jsonWebToken, EmailService emailService) {
         this.authenticationUserRepository = authenticationUserRepository;
@@ -115,6 +121,17 @@ public class AuthenticationService {
         return authenticationUserRepository.findByEmail(email).orElseThrow(() -> new IllegalArgumentException("User not found."));
     }
 
+    @Transactional
+    public void deleteUser(Long userId) {
+        AuthenticationUser user = entityManager.find(AuthenticationUser.class, userId);
+        if (user != null) {
+            entityManager.createNativeQuery("DELETE FROM post_likes WHERE user_id = :userId")
+                    .setParameter("userId", userId)
+                    .executeUpdate();
+            entityManager.remove(user);
+        }
+    }
+
     // Password reset logic
     public void sendPasswordResetToken(String email) {
         Optional<AuthenticationUser> user = authenticationUserRepository.findByEmail(email);
@@ -164,4 +181,6 @@ public class AuthenticationService {
         if (location != null) user.setLocation(location);
         return authenticationUserRepository.save(user);
     }
+
+
 }
