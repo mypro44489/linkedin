@@ -31,6 +31,7 @@ interface PostProps {
 
 export function Post({ post, setPosts }: PostProps) {
   const [showComments, setShowComments] = useState(false);
+  const [content, setContent] = useState("");
   const navigate = useNavigate();
   const { user } = useAuthentication();
 
@@ -97,7 +98,6 @@ export function Post({ post, setPosts }: PostProps) {
 
   const postComment = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const content = e.currentTarget.content.value.trim();
     if (!content) {
       return;
     }
@@ -129,6 +129,7 @@ export function Post({ post, setPosts }: PostProps) {
           return p;
         })
       );
+      setContent("");
     } catch (error) {
       if (error instanceof Error) {
         console.error(error.message);
@@ -204,7 +205,13 @@ export function Post({ post, setPosts }: PostProps) {
       {showComments ? (
         <div className={classes.comments}>
           <form onSubmit={postComment}>
-            <Input placeholder="Add a comment..." name="content" style={{ marginBlock: 0 }} />
+            <Input
+              onChange={(e) => setContent(e.target.value)}
+              value={content}
+              placeholder="Add a comment..."
+              name="content"
+              style={{ marginBlock: 0 }}
+            />
           </form>
 
           {post.comments?.map((comment) => (
