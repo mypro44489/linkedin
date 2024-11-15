@@ -30,12 +30,14 @@
     .name {
       font-weight: bold;
     }
+
     .content {
       display: grid;
       gap: 1rem;
       grid-template-columns: 4rem 1fr;
       align-items: center;
     }
+
     .avatar {
       width: 4rem;
       height: 4rem;

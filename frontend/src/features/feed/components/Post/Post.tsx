@@ -5,12 +5,14 @@ import {
   useAuthentication,
   User,
 } from "../../../authentication/contexts/AuthenticationContextProvider";
+import { timeAgo } from "../../utils/date";
 import classes from "./Post.module.scss";
 
 interface Comment {
   id: number;
   content: string;
   author: User;
+  creationDate: string;
 }
 export interface Post {
   id: number;
@@ -19,6 +21,7 @@ export interface Post {
   picture?: string;
   likes?: User[];
   comments?: Comment[];
+  creationDate: string;
 }
 
 interface PostProps {
@@ -34,37 +37,6 @@ export function Post({ post, setPosts }: PostProps) {
   const [postLiked, setPostLiked] = useState<boolean>(
     !!post.likes?.some((like) => like.id === user?.id)
   );
-
-  // useEffect(() => {
-  //   setPosts((prev) => {
-  //     const posts = prev.map((p) => {
-  //       const innerRealPost = p.originalPost || p;
-  //       if (innerRealPost.id === post.id) {
-  //         return {
-  //           ...p,
-  //           likes: innerRealPost.likes
-  //             ? !postLiked
-  //               ? innerRealPost.likes.filter((like) => like.id !== user?.id)
-  //               : [...innerRealPost.likes, user!]
-  //             : postLiked
-  //             ? [user!]
-  //             : [],
-  //         };
-  //       }
-  //       return p;
-  //     });
-
-  //     return posts.map((p) => {
-  //       if (p.originalPost && p.originalPost.id === post.id) {
-  //         return {
-  //           ...p,
-  //           originalPost: { ...posts.find((post) => post.id === post.id) },
-  //         };
-  //       }
-  //       return p;
-  //     });
-  //   });
-  // }, [postLiked, post.id, setPosts, user]);
 
   const like = async () => {
     setPostLiked((prev) => !prev);
@@ -153,7 +125,7 @@ export function Post({ post, setPosts }: PostProps) {
         <div>
           <div className={classes.name}>{post.author.firstName + " " + post.author.lastName}</div>
           <div className={classes.title}>{post.author.position + " at " + post.author.company}</div>
-          <div className={classes.date}>2 hours ago</div>
+          <div className={classes.date}>{timeAgo(new Date(post.creationDate))}</div>
         </div>
       </div>
       <div className={classes.content}>{post.content}</div>
@@ -219,8 +191,10 @@ export function Post({ post, setPosts }: PostProps) {
                 />
                 <div>
                   <div className={classes.name}>
-                    {comment.author.firstName + " " + comment.author.lastName}
+                    <span>{comment.author.firstName + " " + comment.author.lastName}</span>
+                    <span>{timeAgo(new Date(comment.creationDate))}</span>
                   </div>
+
                   <div className={classes.title}>
                     {comment.author.position + " at " + comment.author.company}
                   </div>

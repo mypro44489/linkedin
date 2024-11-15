@@ -4,6 +4,9 @@ package com.linkedin.backend.features.feed.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.linkedin.backend.features.authentication.model.AuthenticationUser;
 import jakarta.persistence.*;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.time.LocalDateTime;
 
 @Entity(name = "comments")
 public class Comment {
@@ -20,6 +23,9 @@ public class Comment {
     private AuthenticationUser author;
     @Column(nullable = false)
     private String content;
+
+    @CreationTimestamp
+    private LocalDateTime creationDate;
 
     public Comment() {
     }
@@ -61,5 +67,13 @@ public class Comment {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
+    }
+
+    public void setCreationDate(LocalDateTime creationDate) {
+        this.creationDate = creationDate;
     }
 }
