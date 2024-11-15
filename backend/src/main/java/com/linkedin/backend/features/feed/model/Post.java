@@ -1,3 +1,4 @@
+// Post.java
 package com.linkedin.backend.features.feed.model;
 
 import com.linkedin.backend.features.authentication.model.AuthenticationUser;
@@ -26,14 +27,25 @@ public class Post {
     )
     private Set<AuthenticationUser> likes;
 
+    @ManyToOne
+    @JoinColumn(name = "original_post")
+    private Post originalPost;
+
     public Post(String content, AuthenticationUser author) {
         this.content = content;
         this.author = author;
     }
 
+    public Post(AuthenticationUser author, Post originalPost) {
+        this.content = "A repost, check the original post for more details";
+        this.author = author;
+        this.originalPost = originalPost;
+    }
+
     public Post() {
     }
 
+    // Getters and setters for all fields including originalPost
     public Long getId() {
         return id;
     }
@@ -72,5 +84,13 @@ public class Post {
 
     public void setPicture(String picture) {
         this.picture = picture;
+    }
+
+    public Post getOriginalPost() {
+        return originalPost;
+    }
+
+    public void setOriginalPost(Post originalPost) {
+        this.originalPost = originalPost;
     }
 }

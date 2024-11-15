@@ -2,13 +2,13 @@ package com.linkedin.backend.features.feed.service;
 
 import com.linkedin.backend.features.authentication.model.AuthenticationUser;
 import com.linkedin.backend.features.authentication.repository.AuthenticationUserRepository;
+import com.linkedin.backend.features.feed.dto.PostDto;
 import com.linkedin.backend.features.feed.model.Post;
 import com.linkedin.backend.features.feed.repository.PostRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class PostService {
@@ -20,23 +20,33 @@ public class PostService {
         this.userRepository = userRepository;
     }
 
-    public Post createPost(String content, Long authorId) {
+    public Post createPost(PostDto postDto, Long authorId) {
         AuthenticationUser author = userRepository.findById(authorId).orElseThrow(() -> new IllegalArgumentException("User not found"));
-        Post post = new Post(content, author);
+        Post post = new Post(postDto.getContent(), author);
+        post.setPicture(postDto.getPicture());
         post.setLikes(new HashSet<>());
         return postRepository.save(post);
     }
 
+    public Post repost(Long postId, Long userId) {
+        Post originalPost = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found"));
+        AuthenticationUser user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+        Post repost = new Post(user, originalPost);
+        
+        return postRepository.save(repost);
+    }
+
     public Post likePost(Long postId, Long userId) {
-        Optional<Post> post = postRepository.findById(postId);
-        Optional<AuthenticationUser> user = userRepository.findById(userId);
-        if (post.isPresent() && user.isPresent()) {
-            Post existingPost = post.get();
-            existingPost.getLikes().add(user.get());
-            return postRepository.save(existingPost);
+        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found"));
+        AuthenticationUser user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        if (post.getLikes().contains(user)) {
+            post.getLikes().remove(user);
         } else {
-            throw new IllegalArgumentException("Post or User not found");
+            post.getLikes().add(user);
         }
+        return postRepository.save(post);
+
     }
 
     public List<Post> getPostsByUserId(Long userId) {

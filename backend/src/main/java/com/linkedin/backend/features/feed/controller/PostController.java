@@ -1,6 +1,7 @@
 package com.linkedin.backend.features.feed.controller;
 
 import com.linkedin.backend.features.authentication.model.AuthenticationUser;
+import com.linkedin.backend.features.feed.dto.PostDto;
 import com.linkedin.backend.features.feed.model.Post;
 import com.linkedin.backend.features.feed.service.PostService;
 import org.springframework.http.ResponseEntity;
@@ -18,10 +19,16 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Post> createPost(@RequestParam String content, @RequestAttribute("authenticatedUser") AuthenticationUser user
+    public ResponseEntity<Post> createPost(@RequestBody PostDto postDto, @RequestAttribute("authenticatedUser") AuthenticationUser user
     ) {
-        Post post = postService.createPost(content, user.getId());
+        Post post = postService.createPost(postDto, user.getId());
         return ResponseEntity.ok(post);
+    }
+
+    @PostMapping("/{postId}/repost")
+    public ResponseEntity<Post> repost(@PathVariable Long postId, @RequestAttribute("authenticatedUser") AuthenticationUser user) {
+        Post repost = postService.repost(postId, user.getId());
+        return ResponseEntity.ok(repost);
     }
 
     @GetMapping
@@ -38,7 +45,7 @@ public class PostController {
         return ResponseEntity.ok(posts);
     }
 
-    @PostMapping("/{postId}/like")
+    @PutMapping("/{postId}/like")
     public ResponseEntity<Post> likePost(@PathVariable Long postId, @RequestAttribute("authenticatedUser") AuthenticationUser user) {
         Post post = postService.likePost(postId, user.getId());
         return ResponseEntity.ok(post);

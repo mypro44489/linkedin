@@ -65,15 +65,13 @@ export function Feed() {
           <PostingMadal
             showPostingModal={showPostingModal}
             setShowPostingModal={setShowPostingModal}
-            onSubmit={(post: Post) => {
-              setPosts((prev) => [post, ...prev]);
-            }}
+            setPosts={setPosts}
           />
         </div>
         {error && <div className={classes.error}>{error}</div>}
         <div className={classes.feed}>
           {posts.map((post) => (
-            <Post key={post.id} post={post} />
+            <Post key={post.id} post={post} setPosts={setPosts} />
           ))}
         </div>
       </div>
