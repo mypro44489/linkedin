@@ -2,6 +2,7 @@ package com.linkedin.backend.features.feed.model;
 
 import com.linkedin.backend.features.authentication.model.AuthenticationUser;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 import java.util.Set;
 
@@ -11,12 +12,12 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @NotEmpty
     private String content;
-
+    private String picture;
     @ManyToOne
     @JoinColumn(name = "author", nullable = false)
     private AuthenticationUser author;
-
     @ManyToMany
     @JoinTable(
             name = "post_likes",
@@ -25,6 +26,13 @@ public class Post {
     )
     private Set<AuthenticationUser> likes;
 
+    public Post(String content, AuthenticationUser author) {
+        this.content = content;
+        this.author = author;
+    }
+
+    public Post() {
+    }
 
     public Long getId() {
         return id;
@@ -56,5 +64,13 @@ public class Post {
 
     public void setLikes(Set<AuthenticationUser> likes) {
         this.likes = likes;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 }

@@ -42,7 +42,7 @@ export function Profile({
           }
         }}
       >
-        <img className={`${classes.top} ${classes.avatar}`} src="/avatar.png" alt="" />
+        <img className={`${classes.top} ${classes.avatar}`} src={user?.profilePicture} alt="" />
         <div className={classes.name}>
           <div>{user?.firstName + " " + user?.lastName?.charAt(0) + "."}</div>
         </div>
@@ -52,7 +52,11 @@ export function Profile({
         <div className={classes.menu}>
           <div className={classes.top}>
             <div className={classes.content}>
-              <img className={`${classes.left} ${classes.avatar}`} src="/avatar.png" alt="" />
+              <img
+                className={`${classes.left} ${classes.avatar}`}
+                src={user?.profilePicture}
+                alt=""
+              />
               <div className={classes.right}>
                 <div className={classes.name}>{user?.firstName + " " + user?.lastName}</div>
                 <div className={classes.title}>{user?.position + " at " + user?.company}</div>

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/Button/Button.tsx";
 import { usePageTitle } from "../../hooks/usePageTitle.tsx";
+import { useAuthentication } from "../authentication/contexts/AuthenticationContextProvider.tsx";
 import { LeftSidebar } from "./components/LeftSidebar/LeftSidebar.tsx";
 import { Post } from "./components/Post/Post.tsx";
 import { PostingMadal } from "./components/PostingModal/PostingMadal.tsx";
@@ -11,6 +12,7 @@ import classes from "./Feed.module.scss";
 export function Feed() {
   usePageTitle("Feed");
   const [showPostingModal, setShowPostingModal] = useState(false);
+  const { user } = useAuthentication();
   const navigate = useNavigate();
   const [posts, setPosts] = useState<Post[]>([]);
   const [error, setError] = useState("");
@@ -18,7 +20,7 @@ export function Feed() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch(import.meta.env.VITE_API_URL + "/api/v1/posts", {
+        const response = await fetch(import.meta.env.VITE_API_URL + "/api/v1/posts/feed", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
@@ -48,10 +50,14 @@ export function Feed() {
         <div className={classes.posting}>
           <button
             onClick={() => {
-              navigate("/profile/1");
+              navigate(`/profile/${user?.id}`);
             }}
           >
-            <img className={`${classes.top} ${classes.avatar}`} src="/avatar.png" alt="" />
+            <img
+              className={`${classes.top} ${classes.avatar}`}
+              src={user?.profilePicture || "/avatar.png"}
+              alt=""
+            />
           </button>
           <Button outline onClick={() => setShowPostingModal(true)}>
             Start a post
@@ -64,6 +70,7 @@ export function Feed() {
             }}
           />
         </div>
+        {error && <div className={classes.error}>{error}</div>}
         <div className={classes.feed}>
           {posts.map((post) => (
             <Post key={post.id} post={post} />

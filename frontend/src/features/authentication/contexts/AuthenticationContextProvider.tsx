@@ -12,6 +12,7 @@ export interface User {
   position?: string;
   location?: string;
   profileComplete: boolean;
+  profilePicture?: string;
 }
 
 interface AuthenticationContextType {

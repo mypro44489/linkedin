@@ -6,6 +6,8 @@ export interface Post {
   id: number;
   content: string;
   author: User;
+  picture?: string;
+  likes: User[];
 }
 
 interface PostProps {
@@ -22,7 +24,11 @@ export function Post({ post }: PostProps) {
             navigate(`/profile/${post.author.id}`);
           }}
         >
-          <img className={classes.avatar} src="/avatar.png" alt="" />
+          <img
+            className={classes.avatar}
+            src={post.author.profilePicture || "/avatar.png"}
+            alt=""
+          />
         </button>
         <div>
           <div className={classes.name}>{post.author.firstName + " " + post.author.lastName}</div>
@@ -31,6 +37,18 @@ export function Post({ post }: PostProps) {
         </div>
       </div>
       <div className={classes.content}>{post.content}</div>
+      {post.picture && <img src={post.picture} alt="" className={classes.picture} />}
+      {post.likes.length > 0 ? (
+        <div className={classes.likes}>
+          <span>{post.likes[0].firstName + " " + post.likes[0].lastName}</span>
+          {post.likes.length -1 > 0 ? (
+            <span>
+              and {post.likes.length - 1} {post.likes.length - 1 === 1 ? "other" : "others"}
+            </span>
+          ) : null}{" "}
+          liked this
+        </div>
+      ) : null}
       <div className={classes.actions}>
         <button>
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

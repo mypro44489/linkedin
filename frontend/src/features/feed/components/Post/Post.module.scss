@@ -1,5 +1,4 @@
 .root {
-  padding: 1rem;
   background-color: white;
   border-radius: 0.3rem;
   border: 1px solid #e0e0e0;
@@ -8,9 +7,8 @@
     display: flex;
     gap: 1rem;
     align-items: center;
-    margin-bottom: 1rem;
     font-size: 0.9rem;
-
+    padding: 1rem;
     .avatar {
       width: 4rem;
       height: 4rem;
@@ -27,16 +25,24 @@
   }
 
   .content {
-    margin-bottom: 1rem;
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #e0e0e0;
+    padding: 0 1rem 1rem 1rem;
   }
 
+  .picture {
+    width: 100%;
+  }
+
+  .likes {
+    padding: 0.3rem 1rem;
+    font-size: 0.8rem;
+  }
   .actions {
     display: flex;
     gap: 1rem;
     justify-content: space-between;
-    margin-top: 1rem;
+
+    padding: 1rem;
+    border-top: 1px solid #e0e0e0;
 
     button {
       display: flex;

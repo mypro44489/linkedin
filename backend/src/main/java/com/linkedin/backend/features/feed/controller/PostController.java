@@ -30,6 +30,14 @@ public class PostController {
         return ResponseEntity.ok(posts);
     }
 
+    @GetMapping("/feed")
+    public ResponseEntity<List<Post>> getAllPosts(
+            @RequestAttribute("authenticatedUser") AuthenticationUser user
+    ) {
+        List<Post> posts = postService.getFeedPosts(user.getId());
+        return ResponseEntity.ok(posts);
+    }
+
     @PostMapping("/{postId}/like")
     public ResponseEntity<Post> likePost(@PathVariable Long postId, @RequestAttribute("authenticatedUser") AuthenticationUser user) {
         Post post = postService.likePost(postId, user.getId());

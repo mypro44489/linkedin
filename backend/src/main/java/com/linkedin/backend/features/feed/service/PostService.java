@@ -22,9 +22,7 @@ public class PostService {
 
     public Post createPost(String content, Long authorId) {
         AuthenticationUser author = userRepository.findById(authorId).orElseThrow(() -> new IllegalArgumentException("User not found"));
-        Post post = new Post();
-        post.setContent(content);
-        post.setAuthor(author);
+        Post post = new Post(content, author);
         post.setLikes(new HashSet<>());
         return postRepository.save(post);
     }
@@ -43,6 +41,10 @@ public class PostService {
 
     public List<Post> getPostsByUserId(Long userId) {
         return postRepository.findByAuthorId(userId);
+    }
+
+    public List<Post> getFeedPosts(Long authenticatedUserId) {
+        return postRepository.findByAuthorIdNot(authenticatedUserId);
     }
 
     public List<Post> getAllPosts() {

@@ -31,6 +31,7 @@ public class AuthenticationUser {
     private String company = null;
     private String position = null;
     private String location = null;
+    private String profilePicture = null;
     private Boolean profileComplete = false;
 
     @JsonIgnore
@@ -160,5 +161,13 @@ public class AuthenticationUser {
 
     public void setPosts(List<Post> posts) {
         this.posts = posts;
+    }
+
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
     }
 }

@@ -35,6 +35,9 @@
     }
   }
 
+  .error {
+    color: red;
+  }
   @media screen and (min-width: 1135px) {
     grid-template-columns: 14rem 1fr 20rem;
     align-items: flex-start;
