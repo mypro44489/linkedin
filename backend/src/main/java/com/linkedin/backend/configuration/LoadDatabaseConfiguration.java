@@ -62,21 +62,15 @@ public class LoadDatabaseConfiguration {
 
     private void createPosts(PostRepository postRepository, List<AuthenticationUser> users) {
         Random random = new Random();
-        Post originalPost = null;
-
         for (int j = 1; j <= 10; j++) {
             Post post = new Post("Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                     users.get(random.nextInt(users.size())));
             post.setLikes(generateLikes(users, j, random));
             if (j == 1) {
                 post.setPicture("https://images.unsplash.com/photo-1731176497854-f9ea4dd52eb6?q=80&w=3432&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
-                originalPost = post;
             }
             postRepository.save(post);
         }
-
-        Post repost = new Post(users.get(random.nextInt(users.size())), originalPost);
-        postRepository.save(repost);
     }
 
     private HashSet<AuthenticationUser> generateLikes(List<AuthenticationUser> users, int postNumber, Random random) {

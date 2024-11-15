@@ -5,6 +5,7 @@ import com.linkedin.backend.features.authentication.model.AuthenticationUser;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity(name = "posts")
@@ -17,7 +18,7 @@ public class Post {
     private String content;
     private String picture;
     @ManyToOne
-    @JoinColumn(name = "author", nullable = false)
+    @JoinColumn(name = "author_id", nullable = false)
     private AuthenticationUser author;
     @ManyToMany
     @JoinTable(
@@ -27,25 +28,17 @@ public class Post {
     )
     private Set<AuthenticationUser> likes;
 
-    @ManyToOne
-    @JoinColumn(name = "original_post")
-    private Post originalPost;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Comment> comments;
 
     public Post(String content, AuthenticationUser author) {
         this.content = content;
         this.author = author;
     }
 
-    public Post(AuthenticationUser author, Post originalPost) {
-        this.content = "A repost, check the original post for more details";
-        this.author = author;
-        this.originalPost = originalPost;
-    }
-
     public Post() {
     }
 
-    // Getters and setters for all fields including originalPost
     public Long getId() {
         return id;
     }
@@ -86,11 +79,11 @@ public class Post {
         this.picture = picture;
     }
 
-    public Post getOriginalPost() {
-        return originalPost;
+    public List<Comment> getComments() {
+        return comments;
     }
 
-    public void setOriginalPost(Post originalPost) {
-        this.originalPost = originalPost;
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 }

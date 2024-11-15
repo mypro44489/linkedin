@@ -1,7 +1,10 @@
+// PostController.java
 package com.linkedin.backend.features.feed.controller;
 
 import com.linkedin.backend.features.authentication.model.AuthenticationUser;
+import com.linkedin.backend.features.feed.dto.CommentDto;
 import com.linkedin.backend.features.feed.dto.PostDto;
+import com.linkedin.backend.features.feed.model.Comment;
 import com.linkedin.backend.features.feed.model.Post;
 import com.linkedin.backend.features.feed.service.PostService;
 import org.springframework.http.ResponseEntity;
@@ -19,16 +22,15 @@ public class PostController {
     }
 
     @PostMapping
-    public ResponseEntity<Post> createPost(@RequestBody PostDto postDto, @RequestAttribute("authenticatedUser") AuthenticationUser user
-    ) {
+    public ResponseEntity<Post> createPost(@RequestBody PostDto postDto, @RequestAttribute("authenticatedUser") AuthenticationUser user) {
         Post post = postService.createPost(postDto, user.getId());
         return ResponseEntity.ok(post);
     }
 
-    @PostMapping("/{postId}/repost")
-    public ResponseEntity<Post> repost(@PathVariable Long postId, @RequestAttribute("authenticatedUser") AuthenticationUser user) {
-        Post repost = postService.repost(postId, user.getId());
-        return ResponseEntity.ok(repost);
+    @PostMapping("/{postId}/comments")
+    public ResponseEntity<Comment> addComment(@PathVariable Long postId, @RequestBody CommentDto commentDto, @RequestAttribute("authenticatedUser") AuthenticationUser user) {
+        Comment comment = postService.addComment(postId, user.getId(), commentDto.getContent());
+        return ResponseEntity.ok(comment);
     }
 
     @GetMapping
@@ -38,9 +40,7 @@ public class PostController {
     }
 
     @GetMapping("/feed")
-    public ResponseEntity<List<Post>> getAllPosts(
-            @RequestAttribute("authenticatedUser") AuthenticationUser user
-    ) {
+    public ResponseEntity<List<Post>> getAllPosts(@RequestAttribute("authenticatedUser") AuthenticationUser user) {
         List<Post> posts = postService.getFeedPosts(user.getId());
         return ResponseEntity.ok(posts);
     }
