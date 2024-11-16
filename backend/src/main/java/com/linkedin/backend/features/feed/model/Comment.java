@@ -1,4 +1,3 @@
-// Comment.java
 package com.linkedin.backend.features.feed.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;

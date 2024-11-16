@@ -1,4 +1,3 @@
-// Post.java
 package com.linkedin.backend.features.feed.model;
 
 import com.linkedin.backend.features.authentication.model.AuthenticationUser;
