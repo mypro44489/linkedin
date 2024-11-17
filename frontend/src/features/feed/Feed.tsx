@@ -4,8 +4,8 @@ import { Button } from "../../components/Button/Button.tsx";
 import { usePageTitle } from "../../hooks/usePageTitle.tsx";
 import { useAuthentication } from "../authentication/contexts/AuthenticationContextProvider.tsx";
 import { LeftSidebar } from "./components/LeftSidebar/LeftSidebar.tsx";
+import { Madal } from "./components/Madal/Madal.tsx";
 import { Post } from "./components/Post/Post.tsx";
-import { PostingMadal } from "./components/PostingModal/PostingMadal.tsx";
 import { RightSidebar } from "./components/RightSidebar/RightSidebar.tsx";
 import classes from "./Feed.module.scss";
 
@@ -41,6 +41,24 @@ export function Feed() {
     };
     fetchPosts();
   }, []);
+
+  const handlePost = async (content: string, picture: string) => {
+    const response = await fetch(import.meta.env.VITE_API_URL + "/api/v1/posts", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      body: JSON.stringify({ content, picture }),
+    });
+    if (!response.ok) {
+      const { message } = await response.json();
+      throw new Error(message);
+    }
+    const data = await response.json();
+    setPosts([data, ...posts]);
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.left}>
@@ -62,10 +80,10 @@ export function Feed() {
           <Button outline onClick={() => setShowPostingModal(true)}>
             Start a post
           </Button>
-          <PostingMadal
-            showPostingModal={showPostingModal}
-            setShowPostingModal={setShowPostingModal}
-            setPosts={setPosts}
+          <Madal
+            onSubmit={handlePost}
+            showModal={showPostingModal}
+            setShowModal={setShowPostingModal}
           />
         </div>
         {error && <div className={classes.error}>{error}</div>}
