@@ -20,6 +20,18 @@ public class FeedController {
         this.postService = postService;
     }
 
+    @GetMapping
+    public ResponseEntity<List<Post>> getFeedPosts(@RequestAttribute("authenticatedUser") AuthenticationUser user) {
+        List<Post> posts = postService.getFeedPosts(user.getId());
+        return ResponseEntity.ok(posts);
+    }
+
+    @GetMapping("/posts")
+    public ResponseEntity<List<Post>> getAllPosts() {
+        List<Post> posts = postService.getAllPosts();
+        return ResponseEntity.ok(posts);
+    }
+
     @PostMapping("/posts")
     public ResponseEntity<Post> createPost(@RequestBody PostDto postDto, @RequestAttribute("authenticatedUser") AuthenticationUser user) {
         Post post = postService.createPost(postDto, user.getId());
@@ -62,17 +74,6 @@ public class FeedController {
         return ResponseEntity.ok(comment);
     }
 
-    @GetMapping("/posts")
-    public ResponseEntity<List<Post>> getAllPosts() {
-        List<Post> posts = postService.getAllPosts();
-        return ResponseEntity.ok(posts);
-    }
-
-    @GetMapping
-    public ResponseEntity<List<Post>> getFeedPosts(@RequestAttribute("authenticatedUser") AuthenticationUser user) {
-        List<Post> posts = postService.getFeedPosts(user.getId());
-        return ResponseEntity.ok(posts);
-    }
 
     @PutMapping("/posts/{postId}/like")
     public ResponseEntity<Post> likePost(@PathVariable Long postId, @RequestAttribute("authenticatedUser") AuthenticationUser user) {
