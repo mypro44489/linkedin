@@ -42,7 +42,11 @@ export function Profile({
           }
         }}
       >
-        <img className={`${classes.top} ${classes.avatar}`} src={user?.profilePicture} alt="" />
+        <img
+          className={`${classes.top} ${classes.avatar}`}
+          src={user?.profilePicture || "/avatar.png"}
+          alt=""
+        />
         <div className={classes.name}>
           <div>{user?.firstName + " " + user?.lastName?.charAt(0) + "."}</div>
         </div>
@@ -54,7 +58,7 @@ export function Profile({
             <div className={classes.content}>
               <img
                 className={`${classes.left} ${classes.avatar}`}
-                src={user?.profilePicture}
+                src={user?.profilePicture || "/avatar.png"}
                 alt=""
               />
               <div className={classes.right}>
