@@ -99,11 +99,11 @@ public class PostService {
     }
 
     public List<Post> getFeedPosts(Long authenticatedUserId) {
-        return postRepository.findByAuthorIdNot(authenticatedUserId);
+        return postRepository.findByAuthorIdNotOrderByCreationDateDesc(authenticatedUserId);
     }
 
     public List<Post> getAllPosts() {
-        return postRepository.findAll();
+        return postRepository.findAllByOrderByCreationDateDesc();
     }
 
 
