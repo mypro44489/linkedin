@@ -14,12 +14,12 @@ import java.util.HashSet;
 import java.util.List;
 
 @Service
-public class PostService {
+public class FeedService {
     private final PostRepository postRepository;
     private final AuthenticationUserRepository userRepository;
     private final CommentRepository commentRepository;
 
-    public PostService(PostRepository postRepository, AuthenticationUserRepository userRepository, CommentRepository commentRepository) {
+    public FeedService(PostRepository postRepository, AuthenticationUserRepository userRepository, CommentRepository commentRepository) {
         this.postRepository = postRepository;
         this.userRepository = userRepository;
         this.commentRepository = commentRepository;

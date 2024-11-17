@@ -73,7 +73,7 @@ export function Post({ post, setPosts }: PostProps) {
 
     try {
       const response = await fetch(
-        import.meta.env.VITE_API_URL + "/api/v1/posts/" + post.id + "/like",
+        import.meta.env.VITE_API_URL + "/api/v1/feed/posts/" + post.id + "/like",
         {
           method: "PUT",
           headers: {
@@ -102,7 +102,7 @@ export function Post({ post, setPosts }: PostProps) {
     }
     try {
       const response = await fetch(
-        import.meta.env.VITE_API_URL + "/api/v1/posts/" + post.id + "/comments",
+        import.meta.env.VITE_API_URL + "/api/v1/feed/posts/" + post.id + "/comments",
         {
           method: "POST",
           headers: {
@@ -140,7 +140,7 @@ export function Post({ post, setPosts }: PostProps) {
 
   const deleteComment = async (id: number) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/posts/comments/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/feed/comments/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -169,7 +169,7 @@ export function Post({ post, setPosts }: PostProps) {
 
   const editComment = async (id: number, content: string) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/posts/comments/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/feed/comments/${id}`, {
         method: "PUT",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -209,7 +209,7 @@ export function Post({ post, setPosts }: PostProps) {
 
   const deletePost = async (id: number) => {
     try {
-      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/posts/${id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/feed/posts/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -227,7 +227,7 @@ export function Post({ post, setPosts }: PostProps) {
   };
 
   const editPost = async (content: string, picture: string) => {
-    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/posts/${post.id}`, {
+    const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/feed/posts/${post.id}`, {
       method: "PUT",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

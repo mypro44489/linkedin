@@ -23,8 +23,8 @@ export function Feed() {
       try {
         const response = await fetch(
           import.meta.env.VITE_API_URL +
-            "/api/v1/posts" +
-            (feedContent === "connexions" ? "/feed" : ""),
+            "/api/v1/feed" +
+            (feedContent === "connexions" ? "" : "/posts"),
 
           {
             headers: {
@@ -50,7 +50,7 @@ export function Feed() {
   }, [feedContent]);
 
   const handlePost = async (content: string, picture: string) => {
-    const response = await fetch(import.meta.env.VITE_API_URL + "/api/v1/posts", {
+    const response = await fetch(import.meta.env.VITE_API_URL + "/api/v1/feed/posts", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
