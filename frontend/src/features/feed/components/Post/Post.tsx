@@ -173,13 +173,17 @@ export function Post({ post, setPosts }: PostProps) {
             ) : null}{" "}
             liked this
           </div>
-        ) : null}
+        ) : (
+          <div></div>
+        )}
 
         {post.comments && post.comments.length > 0 ? (
           <button className={classes.stat} onClick={() => setShowComments((prev) => !prev)}>
             <span>{post.comments.length} comments</span>
           </button>
-        ) : null}
+        ) : (
+          <div></div>
+        )}
       </div>
       <div className={classes.actions}>
         <button onClick={like} className={postLiked ? classes.active : ""}>
