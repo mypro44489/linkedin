@@ -33,6 +33,12 @@ public class PostController {
         return ResponseEntity.ok(post);
     }
 
+    @PutMapping("/{postId}")
+    public ResponseEntity<Post> editPost(@PathVariable Long postId, @RequestBody PostDto postDto, @RequestAttribute("authenticatedUser") AuthenticationUser user) {
+        Post post = postService.editPost(postId, user.getId(), postDto);
+        return ResponseEntity.ok(post);
+    }
+
     @DeleteMapping("/{postId}")
     public ResponseEntity<Void> deletePost(@PathVariable Long postId, @RequestAttribute("authenticatedUser") AuthenticationUser user) {
         postService.deletePost(postId, user.getId());
@@ -49,6 +55,12 @@ public class PostController {
     public ResponseEntity<Void> deleteComment(@PathVariable Long commentId, @RequestAttribute("authenticatedUser") AuthenticationUser user) {
         postService.deleteComment(commentId, user.getId());
         return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping("/comments/{commentId}")
+    public ResponseEntity<Comment> editComment(@PathVariable Long commentId, @RequestBody CommentDto commentDto, @RequestAttribute("authenticatedUser") AuthenticationUser user) {
+        Comment comment = postService.editComment(commentId, user.getId(), commentDto.getContent());
+        return ResponseEntity.ok(comment);
     }
 
     @GetMapping

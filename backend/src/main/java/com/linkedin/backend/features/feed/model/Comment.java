@@ -26,6 +26,8 @@ public class Comment {
     @CreationTimestamp
     private LocalDateTime creationDate;
 
+    private LocalDateTime updatedDate;
+
     public Comment() {
     }
 
@@ -35,7 +37,12 @@ public class Comment {
         this.content = content;
     }
 
-    // Getters and setters
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedDate = LocalDateTime.now();
+    }
+
+
     public Long getId() {
         return id;
     }
@@ -74,5 +81,13 @@ public class Comment {
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public LocalDateTime getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(LocalDateTime updatedDate) {
+        this.updatedDate = updatedDate;
     }
 }

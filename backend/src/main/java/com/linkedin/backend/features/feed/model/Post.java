@@ -33,12 +33,19 @@ public class Post {
     @CreationTimestamp
     private LocalDateTime creationDate;
 
+    private LocalDateTime updatedDate;
+
     public Post(String content, AuthenticationUser author) {
         this.content = content;
         this.author = author;
     }
 
     public Post() {
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedDate = LocalDateTime.now();
     }
 
     public Long getId() {
@@ -95,5 +102,13 @@ public class Post {
 
     public void setCreationDate(LocalDateTime creationDate) {
         this.creationDate = creationDate;
+    }
+
+    public LocalDateTime getUpdatedDate() {
+        return updatedDate;
+    }
+
+    public void setUpdatedDate(LocalDateTime updatedDate) {
+        this.updatedDate = updatedDate;
     }
 }

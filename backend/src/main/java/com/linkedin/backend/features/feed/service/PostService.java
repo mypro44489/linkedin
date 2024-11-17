@@ -37,6 +37,17 @@ public class PostService {
         return postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found"));
     }
 
+    public Post editPost(Long postId, Long userId, PostDto postDto) {
+        Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found"));
+        AuthenticationUser user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        if (!post.getAuthor().equals(user)) {
+            throw new IllegalArgumentException("User is not the author of the post");
+        }
+        post.setContent(postDto.getContent());
+        post.setPicture(postDto.getPicture());
+        return postRepository.save(post);
+    }
+
     public void deletePost(Long postId, Long userId) {
         Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found"));
         AuthenticationUser user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -61,6 +72,16 @@ public class PostService {
         Post post = postRepository.findById(postId).orElseThrow(() -> new IllegalArgumentException("Post not found"));
         AuthenticationUser user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
         Comment comment = new Comment(post, user, content);
+        return commentRepository.save(comment);
+    }
+
+    public Comment editComment(Long commentId, Long userId, String newContent) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow(() -> new IllegalArgumentException("Comment not found"));
+        AuthenticationUser user = userRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("User not found"));
+        if (!comment.getAuthor().equals(user)) {
+            throw new IllegalArgumentException("User is not the author of the comment");
+        }
+        comment.setContent(newContent);
         return commentRepository.save(comment);
     }
 

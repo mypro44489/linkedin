@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { Dispatch, FormEvent, SetStateAction, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Input } from "../../../../components/Input/Input";
 import {
@@ -6,14 +6,9 @@ import {
   User,
 } from "../../../authentication/contexts/AuthenticationContextProvider";
 import { timeAgo } from "../../utils/date";
+import { Comment } from "../Comment/Comment";
 import classes from "./Post.module.scss";
 
-interface Comment {
-  id: number;
-  content: string;
-  author: User;
-  creationDate: string;
-}
 export interface Post {
   id: number;
   content: string;
@@ -22,6 +17,7 @@ export interface Post {
   likes?: User[];
   comments?: Comment[];
   creationDate: string;
+  updatedDate?: string;
 }
 
 interface PostProps {
@@ -96,7 +92,7 @@ export function Post({ post, setPosts }: PostProps) {
     }
   };
 
-  const postComment = async (e: React.FormEvent<HTMLFormElement>) => {
+  const postComment = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!content) {
       return;
@@ -156,7 +152,10 @@ export function Post({ post, setPosts }: PostProps) {
         <div>
           <div className={classes.name}>{post.author.firstName + " " + post.author.lastName}</div>
           <div className={classes.title}>{post.author.position + " at " + post.author.company}</div>
-          <div className={classes.date}>{timeAgo(new Date(post.creationDate))}</div>
+          <div className={classes.date}>
+            {timeAgo(new Date(post.updatedDate || post.creationDate))}
+            {post.updatedDate ? " . Edited " : ""}
+          </div>
         </div>
       </div>
       <div className={classes.content}>{post.content}</div>
@@ -215,32 +214,7 @@ export function Post({ post, setPosts }: PostProps) {
           </form>
 
           {post.comments?.map((comment) => (
-            <div key={comment.id} className={classes.comment}>
-              <button
-                onClick={() => {
-                  navigate(`/profile/${comment.author.id}`);
-                }}
-              >
-                <img
-                  className={classes.avatar}
-                  src={comment.author.profilePicture || "/avatar.png"}
-                  alt=""
-                />
-                <div>
-                  <div className={classes.name}>
-                    <span>{comment.author.firstName + " " + comment.author.lastName}</span>
-                    <span>{timeAgo(new Date(comment.creationDate))}</span>
-                  </div>
-
-                  <div className={classes.title}>
-                    {comment.author.position + " at " + comment.author.company}
-                  </div>
-                </div>
-              </button>
-              <div>
-                <div>{comment.content}</div>
-              </div>
-            </div>
+            <Comment key={comment.id} comment={comment} />
           ))}
         </div>
       ) : null}
