@@ -12,6 +12,7 @@ import classes from "./Feed.module.scss";
 export function Feed() {
   usePageTitle("Feed");
   const [showPostingModal, setShowPostingModal] = useState(false);
+  const [feedContent, setFeedContent] = useState<"all" | "connexions">("connexions");
   const { user } = useAuthentication();
   const navigate = useNavigate();
   const [posts, setPosts] = useState<Post[]>([]);
@@ -20,11 +21,17 @@ export function Feed() {
   useEffect(() => {
     const fetchPosts = async () => {
       try {
-        const response = await fetch(import.meta.env.VITE_API_URL + "/api/v1/posts/feed", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
-          },
-        });
+        const response = await fetch(
+          import.meta.env.VITE_API_URL +
+            "/api/v1/posts" +
+            (feedContent === "connexions" ? "/feed" : ""),
+
+          {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          }
+        );
         if (!response.ok) {
           const { message } = await response.json();
           throw new Error(message);
@@ -40,7 +47,7 @@ export function Feed() {
       }
     };
     fetchPosts();
-  }, []);
+  }, [feedContent]);
 
   const handlePost = async (content: string, picture: string) => {
     const response = await fetch(import.meta.env.VITE_API_URL + "/api/v1/posts", {
@@ -87,6 +94,22 @@ export function Feed() {
           />
         </div>
         {error && <div className={classes.error}>{error}</div>}
+
+        <div className={classes.header}>
+          <button
+            className={feedContent === "all" ? classes.active : ""}
+            onClick={() => setFeedContent("all")}
+          >
+            All
+          </button>
+          <button
+            className={feedContent === "connexions" ? classes.active : ""}
+            onClick={() => setFeedContent("connexions")}
+          >
+            Feed
+          </button>
+        </div>
+
         <div className={classes.feed}>
           {posts.map((post) => (
             <Post key={post.id} post={post} setPosts={setPosts} />
