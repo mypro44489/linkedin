@@ -135,6 +135,75 @@ export function Post({ post, setPosts }: PostProps) {
     }
   };
 
+  const deleteComment = async (id: number) => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/posts/comments/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+
+      if (!res.ok) {
+        const { message } = await res.json();
+        throw new Error(message);
+      }
+      setPosts((prev) =>
+        prev.map((p) => {
+          if (p.id === post.id) {
+            return {
+              ...p,
+              comments: p.comments?.filter((comment) => comment.id !== id),
+            };
+          }
+          return p;
+        })
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  const editComment = async (id: number, content: string) => {
+    try {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/v1/posts/comments/${id}`, {
+        method: "PUT",
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ content }),
+      });
+
+      if (!res.ok) {
+        const { message } = await res.json();
+        throw new Error(message);
+      }
+      setPosts((prev) =>
+        prev.map((p) => {
+          if (p.id === post.id) {
+            return {
+              ...p,
+              comments: p.comments?.map((comment) => {
+                if (comment.id === id) {
+                  return {
+                    ...comment,
+                    content,
+                    updatedDate: new Date().toISOString(),
+                  };
+                }
+                return comment;
+              }),
+            };
+          }
+          return p;
+        })
+      );
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   return (
     <div className={classes.root}>
       <div className={classes.top}>
@@ -218,7 +287,12 @@ export function Post({ post, setPosts }: PostProps) {
           </form>
 
           {post.comments?.map((comment) => (
-            <Comment key={comment.id} comment={comment} />
+            <Comment
+              editComment={editComment}
+              deleteComment={deleteComment}
+              key={comment.id}
+              comment={comment}
+            />
           ))}
         </div>
       ) : null}
