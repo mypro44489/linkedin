@@ -42,7 +42,7 @@ public class AuthenticationService {
         SecureRandom random = new SecureRandom();
         StringBuilder token = new StringBuilder(5);
         for (int i = 0; i < 5; i++) {
-            token.append(random.nextInt(10)); // Appending random digit from 0 to 9
+            token.append(random.nextInt(10));
         }
         return token.toString();
     }
@@ -107,7 +107,7 @@ public class AuthenticationService {
                         Only one step to take full advantage of LinkedIn.
                         
                         Enter this code to verify your email: %s. The code will expire in %s minutes.""",
-                emailVerificationToken, durationInMinutes); // Include the token in the message body
+                emailVerificationToken, durationInMinutes);
         try {
             emailService.sendEmail(registerRequestBody.getEmail(), subject, body);
         } catch (Exception e) {
@@ -132,7 +132,6 @@ public class AuthenticationService {
         }
     }
 
-    // Password reset logic
     public void sendPasswordResetToken(String email) {
         Optional<AuthenticationUser> user = authenticationUserRepository.findByEmail(email);
         if (user.isPresent()) {
