@@ -125,7 +125,7 @@ public class AuthenticationService {
     public void deleteUser(Long userId) {
         AuthenticationUser user = entityManager.find(AuthenticationUser.class, userId);
         if (user != null) {
-            entityManager.createNativeQuery("DELETE FROM post_likes WHERE user_id = :userId")
+            entityManager.createNativeQuery("DELETE FROM posts_likes WHERE user_id = :userId")
                     .setParameter("userId", userId)
                     .executeUpdate();
             entityManager.remove(user);
