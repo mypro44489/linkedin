@@ -1,13 +1,25 @@
 package com.linkedin.backend.features.feed.model;
 
-import com.linkedin.backend.features.authentication.model.AuthenticationUser;
-import jakarta.persistence.*;
-import jakarta.validation.constraints.NotEmpty;
-import org.hibernate.annotations.CreationTimestamp;
-
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+
+import org.hibernate.annotations.CreationTimestamp;
+
+import com.linkedin.backend.features.authentication.model.AuthenticationUser;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.PreUpdate;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity(name = "posts")
 public class Post {
@@ -23,7 +35,7 @@ public class Post {
     private AuthenticationUser author;
     @ManyToMany
     @JoinTable(
-            name = "post_likes",
+            name = "posts_likes",
             joinColumns = @JoinColumn(name = "post_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
